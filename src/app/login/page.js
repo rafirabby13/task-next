@@ -14,22 +14,23 @@ function Login() {
     console.log(data)
   axios.post('https://backend.dodozo.co/api/v1/auth/login', data)
   .then(res=>{
-    console.log(res.data)
+    console.log(res.data.data.access_token)
+    localStorage.setItem("access-token", res.data.data.access_token)
   })
 
     // console.log(userData);
   }
   const handleGoogleLogin = () => {
-    loginwithGoogle()
-      .then((res) => {
-        // console.log(res.user);
-        // toast.success("Login Successfully");
-        setUser(res.user);
-        // navigate(location?.state ? location.state : "/");
-      })
-      .catch((err) => {
-        // toast.error(err.message);
-      });
+    // loginwithGoogle()
+    //   .then((res) => {
+    //     // console.log(res.user);
+    //     // toast.success("Login Successfully");
+    //     setUser(res.user);
+    //     // navigate(location?.state ? location.state : "/");
+    //   })
+    //   .catch((err) => {
+    //     // toast.error(err.message);
+    //   });
   };
   return (
     <div>
