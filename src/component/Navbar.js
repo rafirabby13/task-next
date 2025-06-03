@@ -25,18 +25,18 @@ const router = useRouter()
 
   const items = (
     <>
-      <Link href="/" className="text-2xl btn">
+      <Link href="/" className=" btn">
         Home
       </Link>
-      <Link href="/dashboard" className="text-2xl btn">
+      <Link href="/dashboard" className=" btn">
         Dashboard
       </Link>
     </>
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="navbar-start">
+    <div className="navbar bg-[#1f48df36] shadow-sm">
+      <div className="navbar-start ">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -62,7 +62,7 @@ const router = useRouter()
             {items}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">dodozo</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{items}</ul>
@@ -87,3 +87,5 @@ const router = useRouter()
 }
 
 export default Navbar;
+
+
