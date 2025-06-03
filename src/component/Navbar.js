@@ -2,12 +2,26 @@
 import useContexthook from "@/hooks/useContexthook";
 import { AuthContext } from "@/providers/AuthProviders";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 
 function Navbar() {
-  const { user } = useContexthook();
-  // console.log(user);
+  const { user , logoutUser, setUser, setIsAdmin , setLoading}= useContexthook();
+  console.log(user);
   // console.log(name)
+const router = useRouter()
+
+  const handleLogout=()=>{ 
+    logoutUser()
+    .then(()=>{
+      // localStorage.removeItem("access-token")
+      console.log('logges out')
+      setIsAdmin(false)
+      setLoading(false)
+      setUser(null)
+      router.push('/')
+    })
+  }
 
   const items = (
     <>
@@ -53,11 +67,12 @@ function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{items}</ul>
       </div>
-      <div>
-        {user && user?.email ? (
-          <div>
+      <div className="navbar-end">
+        {user? (
+          <div className="flex items-center gap-4">
             {" "}
             <p>{user?.displayName}</p>
+            <button onClick={handleLogout} className="btn">Logout</button>
           </div>
         ) : (
           <div className="navbar-end">

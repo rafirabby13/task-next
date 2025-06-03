@@ -2,35 +2,44 @@
 import useContexthook from "@/hooks/useContexthook";
 import React from "react";
 import { FaBeer, FaGoogle } from "react-icons/fa";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 function Login() {
-  const { loginwithGoogle, setUser } = useContexthook();
-
+  const { loginwithGoogle, setUser, setIsAdmin, loading } = useContexthook();
+const router = useRouter()
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
 
-    console.log(data)
+   
+
+    // console.log(data)
   axios.post('https://backend.dodozo.co/api/v1/auth/login', data)
   .then(res=>{
-    console.log(res.data.data.access_token)
-    localStorage.setItem("access-token", res.data.data.access_token)
+      console.log(res?.data?.data)
+      setUser(res?.data?.data)
+      if (res?.data?.data?.access_token) {
+        // localStorage.setItem("access-token", res.data.data.access_token)
+        router.push('/dashboard')
+        setIsAdmin(true)
+    }
   })
 
     // console.log(userData);
   }
   const handleGoogleLogin = () => {
-    // loginwithGoogle()
-    //   .then((res) => {
-    //     // console.log(res.user);
-    //     // toast.success("Login Successfully");
-    //     setUser(res.user);
-    //     // navigate(location?.state ? location.state : "/");
-    //   })
-    //   .catch((err) => {
-    //     // toast.error(err.message);
-    //   });
+    loginwithGoogle()
+      .then((res) => {
+        // console.log(res.user);
+        // toast.success("Login Successfully");
+        setUser(res.user);
+        router.push("/dashboard")
+        // navigate(location?.state ? location.state : "/");
+      })
+      .catch((err) => {
+        // toast.error(err.message);
+      });
   };
   return (
     <div>
